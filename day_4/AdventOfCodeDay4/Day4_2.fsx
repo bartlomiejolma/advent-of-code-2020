@@ -109,14 +109,17 @@ let validateRange min max text =
         | _ -> None
 
 let hgtRule (text: string) = 
-    let len = String.length hgt - 2
-    hgt.[len..]
+    let len = String.length text - 2
+    text.[len..]
     |> function
-        | "cm" -> validateRange 150 193 hgt.[..len - 1]
-        | "in" -> validateRange 59 76 hgt.[..len - 1]
+        | "cm" -> validateRange 150 193 text.[..len - 1]
+        | "in" -> validateRange 59 76 text.[..len - 1]
         | _ -> None
 
 hgtRule "74in"
+hgtRule "190in"
+
+validateRange 59 76 "190"
 
 let eclRule = function
     | "amb" -> Some true
@@ -162,7 +165,7 @@ let containsOnlyAllowed allowed text =
     |>  Seq.toList |> List.forall (fun x -> List.contains x allowed)
  
 let hclRule (text: string) = 
-    let allowed = ['a'..'h'] @ ([0..9] |> List.map (string >> char))
+    let allowed = ['a'..'f'] @ ([0..9] |> List.map (string >> char))
 
     let containsHexes = containsOnlyAllowed allowed
     
