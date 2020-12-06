@@ -6,7 +6,7 @@ c"
 let parseSetOfAnswers (text: string) =
     text.Split '\n'
     |> Seq.map Set.ofSeq
-    |> Seq.reduce Set.intersect
+    |> Set.intersectMany
     |> Set.count
 
 
